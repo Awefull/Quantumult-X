@@ -16,13 +16,45 @@
 //
 // You can optional change the response headers at the same time by using $done({body: modifiedBody, headers: modifiedHeaders}); only change the response headers is not allowed for script-response-body. The modifiedHeaders can be copied and modified from $response.headers, please do not change the content length, type and encoding field.
 // Response status can also be optional changed by using $done({body: modifiedBody, headers: modifiedHeaders, status: modifiedStatus}), the modifiedStatus should be like "HTTP/1.1 200 OK"
+Date.prototype.format = function(fmt){
+  var o = {
+    "M+" : this.getMonth()+1,                 //月份
+    "d+" : this.getDate(),                    //日
+    "h+" : this.getHours(),                   //小时
+    "m+" : this.getMinutes(),                 //分
+    "s+" : this.getSeconds(),                 //秒
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度
+    "S"  : this.getMilliseconds()             //毫秒
+  };
+
+  if(/(y+)/.test(fmt)){
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+  }
+        
+  for(var k in o){
+    if(new RegExp("("+ k +")").test(fmt)){
+      fmt = fmt.replace(
+        RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));  
+    }       
+  }
+
+  return fmt;
+}
+
+
+
 
 var body = $response.body;
 var obj = JSON.parse(body);
 
+var now = new Date();
+var fakeTime = now.getDate()-1;
+var fakeTimeStr = fakeTime.format("yyyy-MM-ddThh:mm:ss");
+
+
 obj.data.hourDesc = "小时以内";
 obj.data.color = "#53A96A";
-obj.data.collectTime = "2022-09-11T18:16:30";
+obj.data.collectTime = fakeTimeStr;
 
 body = JSON.stringify(obj);
 
