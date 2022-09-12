@@ -48,8 +48,8 @@ var body = $response.body;
 var obj = JSON.parse(body);
 
 var now = new Date();
-var fakeTime = now.getDate()-1;
-var fakeTimeStr = fakeTime.format("yyyy-MM-ddThh:mm:ss");
+now.setDate(now.getDate()-1);
+var fakeTimeStr = now.format("yyyy-MM-ddThh:mm:ss");
 
 
 obj.data.hourDesc = "小时以内";
