@@ -20,7 +20,10 @@
 var body = $response.body;
 var obj = JSON.parse(body);
 
-obj.data.hourTime = "48";
+obj.data.hourDesc = "小时以内";
+obj.data.color = "#53A96A";
+obj.data.collectTime = "2022-09-11T18:16:30";
+
 body = JSON.stringify(obj);
 
 console.log(body);
