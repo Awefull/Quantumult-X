@@ -479,7 +479,8 @@ var Encrypt = function(n) {
 };
 //
 var body = $response.body;
-var decData = Decrypt(body.data)
+var obj = JSON.parse(body);
+var decData = Decrypt(obj.data)
 
 decData.hsjc.days = 1;
 
