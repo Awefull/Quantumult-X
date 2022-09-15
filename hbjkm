@@ -483,10 +483,10 @@ var obj = JSON.parse(body);
 var decdata = Decrypt(obj.data);
 var decdataobj = JSON.parse(decdata);
 
-decDataobj.hsjc.days = 1;
+decdataobj.hsjc.days = 1;
 
-var Datastr =  JSON.stringify(decDataobj);
-var crdatastr = Encrypt(Datastr);
+var datastr =  JSON.stringify(decdataobj);
+var crdatastr = Encrypt(datastr);
 obj.data = crdatastr
 body = JSON.stringify(obj);
 
