@@ -480,11 +480,15 @@ var Encrypt = function(n) {
 //
 var body = $response.body;
 var obj = JSON.parse(body);
-var decData = Decrypt(obj.data)
+var decdata = Decrypt(obj.data);
+var decdataobj = JSON.parse(decdata);
 
-decData.hsjc.days = 1;
+decDataobj.hsjc.days = 1;
 
-body = JSON.stringify(decData);
+var Datastr =  JSON.stringify(decDataobj);
+var crdatastr = Encrypt(Datastr);
+obj.data = crdatastr
+body = JSON.stringify(obj);
 
 console.log(body);
 
