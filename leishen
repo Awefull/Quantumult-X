@@ -1,4 +1,5 @@
 const url = `https://webapi.xxghh.biz/api/user/pause`;
+const lurl = `https://webapi.leigod.com/api/auth/login`;
 const method = `POST`;
 const headers = {
   osVersion: `1.4.8`,
@@ -23,7 +24,27 @@ const headers = {
   appId: `nnMobile_d0k3duup`,
   Cookie: `sec_tc=AQAAAHpQZxpFcQMAeRCqPTZleRCrdetl; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22184dc940463d76-0cd91284ce5b9-2a473a34-250125-184dc9404642130%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%22184dc940463d76-0cd91284ce5b9-2a473a34-250125-184dc9404642130%22%7D`,
 };
-const body = `{"account_token":"Cb0VlDAnRj9fR60hxqRQwm0wQAOSY1HcIuQHYCzySD54qWao5ZSMtqFDMIs908df"}`;
+
+const lheaders = {
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36 Edg/88.0.705.53",
+  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+  Connection: "keep-alive",
+  Accept: "application/json, text/javascript, */*; q=0.01",
+  "Accept-Encoding": "gzip, deflate, br",
+  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+  DNT: "1",
+  Referer: "https://www.legod.com/",
+  "Sec-Fetch-Dest": "empty",
+  "Sec-Fetch-Mode": "cors",
+  "Sec-Fetch-Site": "same-site",
+};
+
+const body = {
+  account_token:
+    "8FjWJQLT3b3xMHht8uv7zL8cxfbvBF12sTmZ4wfnXG6AZpASn5xJatWCSj6iipM3",
+};
+const lbody = `{'username':13784762727,'password':'3b8e599bbccaf3c1814daf680a1a5390','user_type':'0','src_channel':'guanwang','country_code':86,'lang':'zh_CN','region_code':1,'account_token':'null'}`;
 
 const myRequest = {
   url: url,
@@ -32,13 +53,32 @@ const myRequest = {
   body: body,
 };
 
-$task.fetch(myRequest).then(
+const lmyRequest = {
+  url: lurl,
+  method: method,
+  headers: lheaders,
+  body: lbody,
+};
+
+$task.fetch(lmyRequest).then(
   (response) => {
-    console.log(response.statusCode + "\n\n" + response.body);
-    $done();
+    body.account_token = response.data.login_info.account_token;
   },
   (reason) => {
     console.log(reason.error);
     $done();
   }
 );
+
+$task.fetch(myRequest).then(
+    (response) => {
+        console.log(response);
+        $done();
+    },
+    (reason) => {
+      console.log(reason.error);
+      $done();
+    }
+  );
+
+
